@@ -57,3 +57,25 @@ var combine2 = function (n, k) {
 }
 
 console.log(combine2(4, 2))
+
+// 使用剪枝优化
+var combine3 = function (n, k) {
+  let res = []
+  const backtrack = (track, i) => {
+    if (track.length === k) {
+      res.push([...track])
+      return
+    }
+    // 还有 k - track.length 个空位，所以 [i...n] 中至少要有 k - track.length 个元素
+    // 所以 i 最多为 n - (k - track.length) + 1
+    for (let j = i; j <= n - (k - track.length) + 1; j++) {
+      track.push(j)
+      backtrack(track, j + 1)
+      track.pop()
+    }
+  }
+  backtrack([], 1)
+  return res
+}
+
+console.log(combine2(4, 2))
