@@ -27,4 +27,35 @@ var numSquares = function (n) {
   }
 }
 
-console.log(numSquares(12))
+// console.log(numSquares(12))
+
+var numSquares2 = function (num) {
+  if (num === 0) {
+    return 0
+  }
+  let res = 0
+  let queue = []
+  let visited = []
+  queue.push(num)
+  visited[num] = true
+  while (queue.length) {
+    let len = queue.length
+    for (let i = 0; i < len; i++) {
+      let value = queue.shift()
+      if (value === 0) {
+        return res
+      }
+      for (let i = 0; value - i * i >= 0; i++) {
+        let temp = value - i * i
+        if (!visited[temp]) {
+          queue.push(temp)
+          visited[temp] = true
+        }
+      }
+    }
+    res++
+  }
+  return -1
+}
+
+console.log(numSquares2(12))

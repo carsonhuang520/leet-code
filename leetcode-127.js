@@ -45,6 +45,51 @@ var ladderLength = function (beginWord, endWord, wordList) {
   return 0
 }
 
+console.time()
 console.log(
   ladderLength('hit', 'cog', ['hot', 'dot', 'dog', 'lot', 'log', 'cog'])
 )
+console.timeEnd()
+
+var ladderLength2 = function (start, target, wordList) {
+  if (wordList.indexOf(target) === -1) {
+    return 0
+  }
+  const isSimilar = (start, target) => {
+    let count = 0
+    for (let i = 0; i < start.length; i++) {
+      if (start[i] !== target[i]) {
+        count++
+      }
+    }
+    return count === 1
+  }
+  let res = 1
+  let visited = new Set()
+  let queue = []
+  queue.push(start)
+  visited.add(start)
+  while (queue.length) {
+    let len = queue.length
+    for (let i = 0; i < len; i++) {
+      let cur = queue.shift()
+      if (cur === target) {
+        return res
+      }
+      for (let j = 0; j < wordList.length; j++) {
+        if (!visited.has(wordList[j]) && isSimilar(cur, wordList[j])) {
+          queue.push(wordList[j])
+          visited.add(wordList[j])
+        }
+      }
+    }
+    res++
+  }
+  return 0
+}
+
+console.time()
+console.log(
+  ladderLength2('hit', 'cog', ['hot', 'dot', 'dog', 'lot', 'log', 'cog'])
+)
+console.timeEnd()
