@@ -89,11 +89,63 @@ var solve = function (board) {
   return board
 }
 
+// console.log(
+//   solve([
+//     ['X', 'X', 'X', 'X'],
+//     ['X', 'O', 'O', 'X'],
+//     ['X', 'X', 'O', 'X'],
+//     ['X', 'O', 'O', 'X'],
+//   ])
+// )
+
+// DFS
+var solve2 = function (board) {
+  let nr = board.length
+  if (nr === 0) {
+    return
+  }
+  let nc = board[0].length
+  const dfs = (row, col) => {
+    if (
+      row >= 0 &&
+      row < nr &&
+      col >= 0 &&
+      col < nc &&
+      board[row][col] === 'O'
+    ) {
+      board[row][col] = 'A'
+      dfs(row - 1, col)
+      dfs(row + 1, col)
+      dfs(row, col - 1)
+      dfs(row, col + 1)
+    }
+  }
+  for (let i = 0; i < nr; i++) {
+    for (let j = 0; j < nc; j++) {
+      if (i === 0 || i === nr - 1 || j === 0 || j === nc - 1) {
+        if (board[i][j] === 'O') {
+          dfs(i, j)
+        }
+      }
+    }
+  }
+  for (let i = 0; i < nr; i++) {
+    for (let j = 0; j < nc; j++) {
+      if (board[i][j] === 'A') {
+        board[i][j] = 'O'
+      } else if (board[i][j] === 'O') {
+        board[i][j] = 'X'
+      }
+    }
+  }
+  return board
+}
+
 console.log(
-  solve([
+  solve2([
     ['X', 'X', 'X', 'X'],
     ['X', 'O', 'O', 'X'],
     ['X', 'X', 'O', 'X'],
-    ['X', 'O', 'O', 'X'],
+    ['X', 'O', 'X', 'X'],
   ])
 )
