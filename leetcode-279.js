@@ -58,4 +58,22 @@ var numSquares2 = function (num) {
   return -1
 }
 
-console.log(numSquares2(12))
+// console.log(numSquares2(12))
+
+// 动态规划
+var numSquares3 = function (num) {
+  if (num < 2) {
+    return num
+  }
+  let dp = new Array(num + 1).fill(num + 1)
+  dp[0] = 0
+  dp[1] = 1
+  for (let i = 2; i <= num; i++) {
+    for (let j = 1; i - j * j >= 0; j++) {
+      dp[i] = Math.min(dp[i], dp[i - j * j] + 1)
+    }
+  }
+  return dp[num]
+}
+
+console.log(numSquares3(12))
