@@ -38,15 +38,17 @@ var oddEvenList = function (head) {
   let count = 1
   let cur = head
   let odd = head
+  let even = odd.next
   while (cur !== null) {
     if (count !== 1 && count % 2 === 1) {
       let next = cur.next
       let oddNext = odd.next
-      cur.next = next
+      even.next = next
       odd.next = cur
       cur.next = oddNext
       odd = cur
       cur = next
+      even = even.next
     } else {
       cur = cur.next
     }
