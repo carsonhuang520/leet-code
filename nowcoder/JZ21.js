@@ -1,20 +1,17 @@
 function IsPopOrder(pushV, popV) {
-  let index = pushV.indexOf(popV[0])
-  if (index === -1) {
-    return false
-  }
-  let pre = popV.indexOf(pushV[index - 1])
-  for (let i = index - 2; i >= 0; i--) {
-    let cur = popV.indexOf(pushV[i])
-    if (pre > cur) {
-      return false
+  let stack = []
+  let i = 0
+  for (let num of pushV) {
+    stack.push(num)
+    while (stack.length && stack[stack.length - 1] === popV[i]) {
+      stack.pop()
+      i++
     }
-    pre = cur
   }
-  return true
+  return stack.length === 0
 }
 
-console.log(IsPopOrder([1, 2, 3, 4, 5], [4, 3, 5, 1, 2]))
+console.log(IsPopOrder([1, 2, 3, 4, 5], [4, 5, 3, 2, 1]))
 
 module.exports = {
   IsPopOrder: IsPopOrder,
