@@ -22,24 +22,17 @@ var nextGreaterElement = function (nums1, nums2) {
 
 // console.log(nextGreaterElement([4, 1, 2], [1, 3, 4, 2]))
 
-var nextGreaterElement2 = function (nums) {
+function nextGreaterElement2(nums) {
+  let ans = []
   let stack = []
-  let res = []
-  let count = 0
-  for (let i = 0; i < nums.length; i++) {
+  for (let i = nums.length - 1; i >= 0; i--) {
     while (stack.length && stack[stack.length - 1] <= nums[i]) {
-      res[count] = nums[i]
       stack.pop()
-      count++
     }
+    ans[i] = stack.length === 0 ? -1 : stack[stack.length - 1]
     stack.push(nums[i])
   }
-  while (stack.length) {
-    res[count] = -1
-    stack.pop()
-    count++
-  }
-  return res
+  return ans
 }
 
-console.log(nextGreaterElement2([1, 3, 4, 2]))
+console.log(nextGreaterElement2([2, 1, 2, 4, 3]))

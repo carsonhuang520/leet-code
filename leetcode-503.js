@@ -16,4 +16,4 @@ var nextGreaterElements = function (nums) {
   return res.slice(0, nums.length)
 }
 
-console.log(nextGreaterElements([1, 2, 1]))
+console.log(nextGreaterElements([2, 1, 2, 4, 3]))

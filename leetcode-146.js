@@ -112,3 +112,70 @@ console.log(
     3
   )
 )
+
+/**
+ * @param {number} capacity
+ */
+var LRUCache = function (capacity) {
+  this.queue = []
+  this.size = capacity
+}
+
+/**
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function (key) {
+  const index = this.getIndex(key)
+  if (index === -1) {
+    return -1
+  } else {
+    const val = this.queue[index].value
+    this.queue.splice(index, 1)
+    this.queue.push({ key: key, value: val })
+    return val
+  }
+}
+
+LRUCache.prototype.getIndex = function (key) {
+  for (let i = 0; i < this.queue.length; i++) {
+    if (this.queue[i].key === key) {
+      return i
+    }
+  }
+  return -1
+}
+
+/**
+ * @param {number} key
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function (key, value) {
+  const index = this.getIndex(key)
+  if (index === -1) {
+    if (this.queue.length >= this.size) {
+      this.queue.shift()
+      this.queue.push({ key, value })
+    } else {
+      this.queue.push({ key, value })
+    }
+  } else {
+    this.queue.splice(index, 1)
+    this.queue.push({ key, value })
+  }
+  console.log(this.queue)
+}
+
+//  Your LRUCache object will be instantiated and called as such:
+var obj = new LRUCache(2)
+obj.put(1, 1)
+obj.put(2, 2)
+obj.get(1)
+obj.put(3, 3)
+obj.get(2)
+obj.put(4, 4)
+obj.put(4, 5)
+obj.get(1)
+obj.get(3)
+obj.get(4)
