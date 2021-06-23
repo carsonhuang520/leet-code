@@ -67,6 +67,6 @@ var reverseBetween = (head, m, n) => {
   if (m === 1) {
     return reverseN(head, n)
   }
-  head.next = reverseBetween(head, m - 1, n - 1)
+  head.next = reverseBetween(head.next, m - 1, n - 1)
   return head
 }
