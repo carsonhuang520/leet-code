@@ -27,3 +27,19 @@ var isValidBST = function (root) {
   }
   return isLeftValid && isRightValid
 }
+
+var isValidBST2 = function (root) {
+  var helper = function (root, min, max) {
+    if (root === null) {
+      return true
+    }
+    if (min !== null && root.val <= min.val) {
+      return false
+    }
+    if (max !== null && root.val >= max.val) {
+      return false
+    }
+    return helper(root.left, min, root) && helper(root.right, root, max)
+  }
+  return helper(root, null, null)
+}
