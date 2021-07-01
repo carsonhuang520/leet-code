@@ -10,7 +10,7 @@ function calculate(s) {
         num = num * 10 + parseInt(c)
       }
       if (c === '(') {
-        [num, u] = helper(i + 1)
+        ;[num, u] = helper(i + 1)
         i = u
       }
       if ((!isDigit(c) && c !== ' ') || i === s.length - 1) {
@@ -51,5 +51,3 @@ function calculate(s) {
 function isDigit(s) {
   return !isNaN(parseInt(s))
 }
-
-console.log(calculate('(1+(4+5+2)-3)+(6+8)'))
